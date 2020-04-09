@@ -1,3 +1,5 @@
+#Requires -Version 3.0
+
 Add-PSSnapin microsoft.exchange.management.powershell.e2010
 
 # Setting variable section
