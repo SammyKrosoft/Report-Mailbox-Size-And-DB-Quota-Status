@@ -1,0 +1,2 @@
+# Report-Mailbox-Size-And-DB-Quota-Status
+This script is to create a CSV report of Mailbox Size, and dump mailbox quota, mailbox size, and if mailbox is using Database quotas, and compare their sizes with mailbox quota if it's not using Database quotas, and with database quota if mailbox is using database Quota. We're leveraging [PSCustomObject] here to gather information from different cmdlets (Get-Mailbox, Get-MAilboxStatistics, Get-MailboxDatabase), which requires PowerShell v3 minimum
