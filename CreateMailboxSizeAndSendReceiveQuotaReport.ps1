@@ -1,9 +1,21 @@
 #Requires -Version 3.0
 
+# Always load WPF assembly to be able to use "[System.Windows.MessageBox]"
+Add-Type -AssemblyName presentationframework, presentationcore
+
+# a message, a title and a button
+# More info : https://msdn.microsoft.com/en-us/library/ms598690.aspx
+$msg = "WARNING: This script is collecting ALL mailboxes server by server, and ALL MAilbox statistics. Click [CANCEL] to abort, [OK] to continue"
+$Title = "Continue ?"
+$Button = "OkCancel"
+$Result = [System.Windows.MessageBox]::Show($msg,$Title, $Button)
+If ($Result = "Cancel"){Write-Host "You chose to cancel.";exit}Else{Write-Host "You chose to continue, gathering Exchange and mailbox statistics information..."}
+
+
 Add-PSSnapin microsoft.exchange.management.powershell.e2010
 
 # Setting variable section
-$Partner = "Organization_Name"
+$Partner = "CUSTOMER_NAME"
 $CurrentDate = Get-Date
 $CurrentDate = $CurrentDate.ToString('MM-dd-yyyy_hh-mm-ss')
 $ExportFilePath = "c:\temp\Mailbox_Report_$CurrentDate.csv"
