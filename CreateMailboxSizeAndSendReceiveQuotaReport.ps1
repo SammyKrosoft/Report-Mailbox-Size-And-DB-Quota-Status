@@ -9,7 +9,7 @@ $msg = "WARNING: This script is collecting ALL mailboxes server by server, and A
 $Title = "Continue ?"
 $Button = "OkCancel"
 $Result = [System.Windows.MessageBox]::Show($msg,$Title, $Button)
-If ($Result = "Cancel"){Write-Host "You chose to cancel.";exit}Else{Write-Host "You chose to continue, gathering Exchange and mailbox statistics information..."}
+If ($Result -eq "Cancel"){Write-Host "You chose to cancel.";exit}Else{Write-Host "You chose to continue, gathering Exchange and mailbox statistics information..."}
 
 
 Add-PSSnapin microsoft.exchange.management.powershell.e2010
