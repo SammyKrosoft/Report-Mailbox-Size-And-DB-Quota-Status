@@ -1,8 +1,17 @@
 #Requires -Version 3.0
 
+# Setting variable section
+$PercentWarning = 0.85
+$Partner = "ORGANIZATION_NAME"
+$CurrentDate = Get-Date
+$CurrentDate = $CurrentDate.ToString('MM-dd-yyyy_hh-mm-ss')
+$ExportFilePath = "c:\temp\Mailbox_Report_$CurrentDate.csv"
+#End setting variable section
+
+
 # Always load WPF assembly to be able to use "[System.Windows.MessageBox]"
 Add-Type -AssemblyName presentationframework, presentationcore
-
+6
 # a message, a title and a button
 # More info : https://msdn.microsoft.com/en-us/library/ms598690.aspx
 $msg = "WARNING: This script is collecting ALL mailboxes server by server, and ALL MAilbox statistics. Click [CANCEL] to abort, [OK] to continue"
@@ -14,12 +23,7 @@ If ($Result -eq "Cancel"){Write-Host "You chose to cancel.";exit}Else{Write-Host
 
 Add-PSSnapin microsoft.exchange.management.powershell.e2010
 
-# Setting variable section
-$Partner = "CUSTOMER_NAME"
-$CurrentDate = Get-Date
-$CurrentDate = $CurrentDate.ToString('MM-dd-yyyy_hh-mm-ss')
-$ExportFilePath = "c:\temp\Mailbox_Report_$CurrentDate.csv"
-#End setting variable section
+
 
 $MailboxServers = Get-MailboxServer
 $Collection = @()
@@ -47,7 +51,7 @@ Foreach ($Server in $MailboxServers){
             $CurrentMailboxStats = Get-MailboxStatistics -Identity $Mailbox.Identity| Select TotalItemSize
             $TotalMailboxSize = $CurrentMailboxStats.Totalitemsize.VAlue.ToBytes()
 
-            If ($TotalMailboxSize -ge $($Limit * 0.85)){$Status = "WARNING"}ELSE{$STATUS = "OK"}
+            If ($TotalMailboxSize -ge $($Limit * $PercentWarning)){$Status = "WARNING"}ELSE{$STATUS = "OK"}
 
             $CurrentCustomObject = [PSCustomObject]@{
                                             "Partner" = $Partner
