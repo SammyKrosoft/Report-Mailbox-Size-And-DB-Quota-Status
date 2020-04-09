@@ -1,7 +1,7 @@
 Add-PSSnapin microsoft.exchange.management.powershell.e2010
 
 # Setting variable section
-$Partner = "CUSTOMER_NAME"
+$Partner = "Organization_Name"
 $CurrentDate = Get-Date
 $CurrentDate = $CurrentDate.ToString('MM-dd-yyyy_hh-mm-ss')
 $ExportFilePath = "c:\temp\Mailbox_Report_$CurrentDate.csv"
